@@ -117,7 +117,7 @@ function createAuthorizer(option) {
                     );
 
                     if (additionalAuthorize(req, res, next) == false) {
-                        throw new Error("AdditionCheck failed");
+                        throw new Error("additionalAuthorize failed");
                     }
 
                     req.authorizer.authorized = true;
