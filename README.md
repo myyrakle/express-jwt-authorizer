@@ -1,6 +1,6 @@
 # express-jwt-authorizer
 
-![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.3.1-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
+![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.3.3-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
 
 Express middleware that automatically performs authentication.
 
@@ -24,10 +24,21 @@ const authorizer = require("express-jwt-authorizer");
 const key = require("./key/key"); //key value
 app.use(
     authorizer({
+        //optional
         needAuthPaths: ["^/*"],
+        //optional
         needAuthPathsExcept: ["^/auth/*"],
+        //optional
         privateKey: key.privateKey,
+        //optional
         expireIn: "1h",
+        //optional
+        logger: console.log,
+        //optional
+        additionalAuthorize: (req, res, next) => {
+            /* you can check session here */
+            return true;
+        },
     })
 );
 ```

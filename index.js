@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
  * - needAuthPathsExcept => ["^/auth/*", "^/public/*"]
  * - expiresIn => 1 (millisecond) | 1ms (millisecond) | 1s (second) | 1m (minute) | 1h (hour) | 1d (day) | 1w (week) | 1y (year)
  * - algorithm => "HS256" | ...
+ * - logger => logging function
+ * - additionalAuthorize => additional Check Function
  */
 function createAuthorizer(option) {
     //유효성 검증
@@ -71,12 +73,20 @@ function createAuthorizer(option) {
     // 암호화를 위한 키값
     const privateKey = option.privateKey || "foobar";
 
+    // 추가 체크. 세션값 등.
+    // true이면 성공
+    const additionalAuthorize =
+        option.additionalAuthorize || ((req, res, next) => true);
+
+    // 오류 로깅 함수
+    const logger = option.logger || console.log;
+
     // 미들웨어
     return async function (req, res, next) {
         req.authorizer = {
             authorized: false,
             //로그인 토큰 반환
-            getToken: (values) => {
+            makeToken: (values) => {
                 const token = jwt.sign(values, privateKey, {
                     expiresIn,
                     algorithm,
@@ -94,7 +104,7 @@ function createAuthorizer(option) {
                 delete oldTokenValue.nbf;
                 delete oldTokenValue.jti;
 
-                return req.authorizer.getToken(oldTokenValue);
+                return req.authorizer.makeToken(oldTokenValue);
             },
 
             //인증 수행
@@ -102,8 +112,15 @@ function createAuthorizer(option) {
                 req.authorizer.tokenValue = {};
                 try {
                     req.authorizer.tokenValue = jwt.verify(token, privateKey);
+                    logger(
+                        `### decoded token value >>> ${req.authorizer.tokenValue}`
+                    );
+
+                    if (additionalAuthorize(req, res, next) == false) {
+                        throw new Error("AdditionCheck failed");
+                    }
                 } catch (error) {
-                    req.error(error);
+                    logger(error);
                     res.status(401).json({
                         success: false,
                         msg: "login failed",
