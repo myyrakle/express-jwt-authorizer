@@ -31,3 +31,26 @@ app.use(
     })
 );
 ```
+
+#
+...then 
+```
+// get login token
+const token = req.authorizer.getToken({user_no:10, user_type:'U'});
+```
+
+```
+// check authorization. true or false
+req.authorizer.authorized
+```
+
+```
+// If authorized, the token value will be stored.
+req.authorizer.tokenValue
+```
+
+```
+// Authentication is performed by receiving the token value from the authorization of the header. 
+// It is not necessary to use it directly.
+req.authorizer.authorize(req, res, next);
+```

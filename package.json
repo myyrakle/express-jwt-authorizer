@@ -1,6 +1,6 @@
 {
     "name": "express-jwt-authorizer",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "first publish. add more later...",
     "main": "index.js",
     "scripts": {
