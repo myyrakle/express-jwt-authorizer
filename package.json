@@ -1,0 +1,33 @@
+{
+    "name": "express-jwt-authorizer",
+    "version": "0.1.1",
+    "description": "first publish. add more later...",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/myyrakle/express-jwt-authorizer.git"
+    },
+    "author": {
+        "name": "myyrakle",
+        "email": "sssang97@naver.com"
+    },
+    "readmeFilename": "README.md",
+    "keywords": [
+        "express",
+        "express.js",
+        "auth",
+        "jwt",
+        "jsonwebtoken"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/myyrakle/express-jwt-authorizer/issues"
+    },
+    "homepage": "https://github.com/myyrakle/express-jwt-authorizer#readme",
+    "dependencies": {
+        "jsonwebtoken": "^8.5.1"
+    }
+}
