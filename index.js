@@ -43,7 +43,7 @@ function createAuthorizer(option) {
     }
 
     const validatePathValues = (e) => {
-        if (typeof e == "string") {
+        if (e === String(e)) {
             return new RegExp(e);
         } else if (e instanceof RegExp) {
             return e;
@@ -119,6 +119,10 @@ function createAuthorizer(option) {
                     if (additionalAuthorize(req, res, next) == false) {
                         throw new Error("AdditionCheck failed");
                     }
+
+                    req.authorizer.authorized = true;
+
+                    return;
                 } catch (error) {
                     logger(error);
                     res.status(401).json({
@@ -127,8 +131,6 @@ function createAuthorizer(option) {
                     });
                     return;
                 }
-
-                req.authorizer.authorized = true;
             },
         };
 
@@ -136,22 +138,26 @@ function createAuthorizer(option) {
         const path = req.path;
 
         const needAuth = needAuthPaths.some((e) => e.test(path));
-
         const needAuthExcept = needAuthPathsExcept.some((e) => e.test(path));
 
+        //인증 대상
         if (needAuth && !needAuthExcept) {
-            if (token == undefined) {
+            if (token !== String(token)) {
                 res.status(401).json({
                     success: false,
                     msg: "need authorization token",
                 });
                 return;
             }
-            //인증 대상
+
             req.authorizer.authorize(req, res, next);
-            next();
-        } else {
-            //인증 대상 아님
+
+            if (req.authorizer.authorized) {
+                next();
+            }
+        }
+        //인증 대상 아님
+        else {
             req.authorizer.authorized = false;
             next();
         }
