@@ -38,7 +38,7 @@ app.use(
 
 ```
 // get login token
-const token = req.authorizer.getToken({user_no:10, user_type:'U'});
+const token = req.authorizer.makeToken({user_no:10, user_type:'U'});
 ```
 
 ```
