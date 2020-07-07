@@ -86,9 +86,15 @@ function createAuthorizer(option) {
             },
 
             //로그인 토큰 갱신
-            refreshToken: () => {
-                const token = jwt.sign(values, privateKey);
-                return token;
+            refreshToken: (req, res, next) => {
+                req.authorizer.authorize();
+                const oldTokenValue = req.authorizer.tokenValue;
+                delete oldTokenValue.iat;
+                delete oldTokenValue.exp;
+                delete oldTokenValue.nbf;
+                delete oldTokenValue.jti;
+
+                return req.authorizer.getToken(oldTokenValue);
             },
 
             //인증 수행

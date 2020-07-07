@@ -1,6 +1,6 @@
 # express-jwt-authorizer
 
-![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.1.1-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
+![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.2.0-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
 
 Express middleware that automatically performs authentication.
 
@@ -33,7 +33,9 @@ app.use(
 ```
 
 #
-...then 
+
+...then
+
 ```
 // get login token
 const token = req.authorizer.getToken({user_no:10, user_type:'U'});
@@ -50,7 +52,7 @@ req.authorizer.tokenValue
 ```
 
 ```
-// Authentication is performed by receiving the token value from the authorization of the header. 
+// Authentication is performed by receiving the token value from the authorization of the header.
 // It is not necessary to use it directly.
 req.authorizer.authorize(req, res, next);
 ```
