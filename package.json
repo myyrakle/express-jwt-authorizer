@@ -1,6 +1,6 @@
 {
     "name": "express-jwt-authorizer",
-    "version": "0.3.6",
+    "version": "0.3.7",
     "description": "express jwt authorization middleware",
     "main": "index.js",
     "scripts": {
