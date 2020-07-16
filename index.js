@@ -38,7 +38,7 @@ function createAuthorizer(option) {
 
     if (option.expiresIn !== String(option.expiresIn)) {
         console.log(
-            "### No expireIn value was entered or an incorrect expireIn value was entered. default value is an hour('1h')"
+            "### No expiresIn value was entered or an incorrect expireIn value was entered. default value is an hour('1h')"
         );
     }
 

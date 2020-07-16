@@ -1,6 +1,6 @@
 # express-jwt-authorizer
 
-![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.3.7-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
+![](https://img.shields.io/badge/language-Javascript-red) ![](https://img.shields.io/badge/version-0.3.8-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/express-jwt-authorizer/blob/master/LICENSE)
 
 Express middleware that automatically performs authentication.
 
@@ -27,7 +27,7 @@ app.use(
         needAuthPaths: ["^/*"],
         needAuthPathsExcept: ["^/auth/*"],
         privateKey: key.privateKey,
-        expireIn: "1h", // ms, s, m, h, d, w, y 
+        expiresIn: "1h", // ms, s, m, h, d, w, y 
         logger: console.log,
         additionalAuthorize: (req, res, next) => {
             /* you can check session here */
@@ -41,7 +41,7 @@ The option values ​​are all optional parameters.
 - **needAuthPath**: URL paths to be authenticated are specified as regular expressions. These routes are not accessible without an authentication token.
 - **needAuthPathExcept**: This is a regular expression of the path that will not be authenticated. It takes precedence over needAuthPath.
 - **privateKey**: The key value to encrypt the token.
-- **expireIn**: Token expiration time. 
+- **expiresIn**: Token expiration time. 
 - **logger**: Logging function to output the error that occurred inside.
 - **additionalAuthorize**: This function can be used when additional authentication such as session check is required. If authentication is successful, you can return true.
 
