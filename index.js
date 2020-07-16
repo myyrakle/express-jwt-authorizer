@@ -135,7 +135,7 @@ function createAuthorizer(option) {
         };
 
         const token = req.headers.authorization;
-        const path = req.originalUrl;
+        const path = req.originalUrl; //TODO: 미들웨어에서는 상위 URL까지 가져오진 못함. 미들웨어에서도 전체 URL을 가져올 수 있게 해볼 것..
 
         const needAuth = needAuthPaths.some((e) => e.test(path));
         const needAuthExcept = needAuthPathsExcept.some((e) => e.test(path));
