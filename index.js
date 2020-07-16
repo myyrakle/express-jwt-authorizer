@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
  * - additionalAuthorize => additional Check Function
  */
 function createAuthorizer(option) {
-    //유효성 검증
+    /* ---------------- 유효성 검증 ---------------- */
     if (
         Array.isArray(option.needAuthPaths) == false &&
         option.needAuthPaths != undefined
@@ -30,6 +30,10 @@ function createAuthorizer(option) {
         );
     }
 
+    if (!(option.logger instanceof Function) && option.logger != undefined) {
+        throw new Error("!!! invalid logger option. need unary function");
+    }
+
     if (option.privateKey !== String(option.privateKey)) {
         console.log(
             "!!!: No key value was entered or an incorrect key value was entered. It is recommended to pass the correct string key value."
@@ -41,6 +45,8 @@ function createAuthorizer(option) {
             "### No expiresIn value was entered or an incorrect expireIn value was entered. default value is an hour('1h')"
         );
     }
+
+    /* ---------------- ######## ---------------- */
 
     const validatePathValues = (e) => {
         if (e === String(e)) {
