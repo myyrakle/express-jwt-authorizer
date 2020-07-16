@@ -135,7 +135,7 @@ function createAuthorizer(option) {
         };
 
         const token = req.headers.authorization;
-        const path = req.path;
+        const path = req.originalUrl;
 
         const needAuth = needAuthPaths.some((e) => e.test(path));
         const needAuthExcept = needAuthPathsExcept.some((e) => e.test(path));
